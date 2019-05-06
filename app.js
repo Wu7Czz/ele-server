@@ -28,7 +28,6 @@ router.use('', GraphqlRouter.routes())
 
 app.use(router.routes())
    .use(router.allowedMethods());
-
 app.listen(port);
 
 console.log('ele server listen port: ' + port)

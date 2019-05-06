@@ -13,7 +13,6 @@ import {
   
   import mongoose from 'mongoose'
   
-  import {InfoType} from './info'
   const Student = mongoose.model('Student')
   
   
@@ -31,9 +30,6 @@ import {
       },
       age: {
         type: GraphQLInt
-      },
-      info: {
-        type: InfoType
       }
     }
   })

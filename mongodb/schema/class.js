@@ -1,17 +1,17 @@
-// 引入mongoose
 import mongoose from 'mongoose'
 
-// 
 const Schema = mongoose.Schema
+const ObjectId = Schema.Types.ObjectId
 
-// 实例InfoSchema
-const InfoSchema = new Schema({
-  hobby: [String],
-  height: {
+
+const ClassSchema = new Schema({
+  name: String,
+  gradeId: {
     type: String,
-    required: [true, 'height为必要字段']
+    ref: 'grade',
+    required:[true,"必须传入所属年级"]
   },
-  weight: Number,
+  gradeName: String,
   meta: {
     createdAt: {
       type: Date,
@@ -22,18 +22,15 @@ const InfoSchema = new Schema({
       default: Date.now()
     }
   }
-}, { 
-  versionKey: false // 不需要 __v 字段，默认是加上的
 })
-// 在保存数据之前跟新日期
-InfoSchema.pre('save', function (next) {
+
+ClassSchema.pre('save', function (next) {
   if (this.isNew) {
     this.meta.createdAt = this.meta.updatedAt = Date.now()
   } else {
     this.meta.updatedAt = Date.now()
   }
-
   next()
 })
-// 建立Info数据模型
-mongoose.model('Info', InfoSchema)
+
+mongoose.model('Class', ClassSchema)
