@@ -13,7 +13,7 @@ export const saveClass = async (ctx, next) => {
     if (saveClass) {
       ctx.body = {
         success: true,
-        class: saveClass
+        data: saveClass
       }
     } else {
       ctx.body = {
@@ -32,7 +32,7 @@ export const fetchClass = async (ctx, next) => {
   if (_classes.length) {
     ctx.body = {
       success: true,
-      class: _classes
+      data: _classes
     }
   } else {
     ctx.body = {

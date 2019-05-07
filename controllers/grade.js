@@ -13,7 +13,7 @@ export const saveGrade = async (ctx, next) => {
     if (saveGrade) {
       ctx.body = {
         success: true,
-        grade: saveGrade
+        data: saveGrade
       }
     } else {
       ctx.body = {
@@ -32,7 +32,7 @@ export const fetchGrade = async (ctx, next) => {
   if (grades.length) {
     ctx.body = {
       success: true,
-      grade: grades
+      data: grades
     }
   } else {
     ctx.body = {
