@@ -25,7 +25,7 @@ export const saveClass = async (ctx, next) => {
   }
 }
 
-// 查询所有学生的数据
+// 查询所有班级的数据
 export const fetchClass = async (ctx, next) => {
   const _classes = await ClassModel.find({})
 
@@ -33,6 +33,24 @@ export const fetchClass = async (ctx, next) => {
     ctx.body = {
       success: true,
       data: _classes
+    }
+  } else {
+    ctx.body = {
+      success: false
+    }
+  }
+}
+// 删除指定年级
+export const deleteClass = async (ctx, next) => {
+  const id = ctx.query ? ctx.query.id : ''
+  if (!id) {
+    return fasle
+  }
+  const p = await ClassModel.deleteOne({'_id' : id})
+  if (p) {
+    ctx.body = {
+      success: true,
+      data: p
     }
   } else {
     ctx.body = {
