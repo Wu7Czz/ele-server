@@ -12,6 +12,10 @@ const ClassSchema = new Schema({
     required:[true,"必须传入所属年级"]
   },
   gradeName: String,
+  studentNum: {
+    type: Number,
+    default: 0
+  },
   meta: {
     createdAt: {
       type: Date,

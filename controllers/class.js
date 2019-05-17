@@ -1,8 +1,7 @@
 import mongoose from 'mongoose'
-import {handleError} from '../utils/index.js'
 const ClassModel = mongoose.model('Class')
 
-// 保存学生数据的方法
+// 保存班级数据的方法
 export const saveClass = async (ctx, next) => {
   // 获取前端请求的数据
   const opts = ctx.request.body
@@ -16,12 +15,10 @@ export const saveClass = async (ctx, next) => {
         data: saveClass
       }
     } else {
-      ctx.body = {
-        success: false
-      }
+      ctx.throw(500, '保存失败！')
     }
   } else {
-    handleError(ctx, validation.message)
+    ctx.throw(403, validation.message)
   }
 }
 
@@ -35,16 +32,14 @@ export const fetchClass = async (ctx, next) => {
       data: _classes
     }
   } else {
-    ctx.body = {
-      success: false
-    }
+    ctx.throw(500, '查询失败！')
   }
 }
 // 删除指定年级
 export const deleteClass = async (ctx, next) => {
   const id = ctx.query ? ctx.query.id : ''
   if (!id) {
-    return fasle
+    ctx.throw(403, '查询失败！')
   }
   const p = await ClassModel.deleteOne({'_id' : id})
   if (p) {
@@ -53,8 +48,6 @@ export const deleteClass = async (ctx, next) => {
       data: p
     }
   } else {
-    ctx.body = {
-      success: false
-    }
+    ctx.throw(500, '删除失败！')
   }
 }

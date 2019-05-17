@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 const GradeModel = mongoose.model('Grade')
+const ClassModel = mongoose.model('Class')
 
 // 保存学生数据的方法
 export const saveGrade = async (ctx, next) => {
@@ -16,12 +17,10 @@ export const saveGrade = async (ctx, next) => {
         data: saveGrade
       }
     } else {
-      ctx.body = {
-        success: false
-      }
+      ctx.throw(500, '保存失败！')
     }
   } else {
-    handleError(ctx, validation.message)
+    ctx.throw(403, validation.message)
   }
 }
 
@@ -35,26 +34,26 @@ export const fetchGrade = async (ctx, next) => {
       data: grades
     }
   } else {
-    ctx.body = {
-      success: false
-    }
+    ctx.throw(500, '查询失败！')
   }
 }
 // 删除指定年级
 export const deleteGrade = async (ctx, next) => {
   const id = ctx.query ? ctx.query.id : ''
   if (!id) {
-    return fasle
+    ctx.throw(403, '未传入年级id！')
   }
-  const p = await GradeModel.deleteOne({'_id' : id})
-  if (p) {
+  const c = await ClassModel.findOne({'gradeId': id})
+  if (c) {
+    ctx.throw(403, '不能删除有班级的年级！')
+  }
+  const g = await GradeModel.deleteOne({'_id' : id})
+  if (g) {
     ctx.body = {
       success: true,
-      data: p
+      data: g
     }
   } else {
-    ctx.body = {
-      success: false
-    }
+    ctx.throw(500, '删除失败！')
   }
 }
