@@ -1,3 +1,4 @@
+// pm2 start app.js --interpreter babel-node
 import Koa from 'koa'
 import KoaStatic from 'koa-static'
 import Router from 'koa-router'
@@ -18,7 +19,7 @@ const GraphqlRouter = require('./router')
 
 const app = new Koa()
 const router = new Router()
-const port = config.port || 4000
+const port = config.port || 3030
 
 // app.use(enforceHttps()) 
 app.use(bodyParser());
@@ -28,6 +29,7 @@ router.use('', GraphqlRouter.routes())
 
 app.use(router.routes())
    .use(router.allowedMethods());
+
 app.listen(port);
 
 console.log('ele server listen port: ' + port)
