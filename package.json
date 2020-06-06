@@ -9,7 +9,7 @@
   "author": "wu7",
   "license": "ISC",
   "dependencies": {
-    "apollo-server-koa": "^2.4.8",
+    "apollo-server-koa": "^2.14.2",
     "bcrypt": "^3.0.0",
     "graphql": "^14.2.0",
     "graphql-server-koa": "^1.4.0",
